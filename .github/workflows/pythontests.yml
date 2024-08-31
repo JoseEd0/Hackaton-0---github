@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ['3.11', '3.12']  # Especifica las versiones de Python a probar
+        python-version: ['3.10', '3.11']  # Versión de Python a probar
 
     steps:
     - name: Check out the repository
@@ -33,5 +33,4 @@ jobs:
 
     - name: Run tests
       run: |
-        python -m unittest test  # Ejecuta las pruebas en test.py
-
+        python -m unittest discover -s tests  # Ejecuta las pruebas en el directorio 'tests'
