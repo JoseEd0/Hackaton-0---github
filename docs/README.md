@@ -1,0 +1,1 @@
+Rodrigo Gallegos Chavez ( Soy un estudiante de CS , me apasionan los videojuegos y leer , me gusta salir y aprender cada dia )
