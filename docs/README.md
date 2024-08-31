@@ -1,1 +1,1 @@
-David Alexander Salaverry Cuzcano - Soy estudiante de CS , me gusta la programacion y curso de DBP.
+David Alexander Salaverry Cuzcano - Soy estudiante de CS , me gusta la programacion y el curso de DBP.
