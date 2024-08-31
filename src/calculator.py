@@ -38,6 +38,8 @@ def calculate(expression):
     try:
         # Evaluar la expresión
         result = eval(expression)
+        # Redondear el resultado para evitar problemas de precisión de punto flotante
+        result = round(result, 10)
     except ZeroDivisionError:
         raise ZeroDivisionError("División por cero")
     except SyntaxError:
