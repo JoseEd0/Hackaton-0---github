@@ -1,0 +1,1 @@
+José Eduardo Huamani Ñaupas, soy un estudiante de CS de 4to ciclo y me gusta el curso de teoria de la computación.
