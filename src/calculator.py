@@ -1,4 +1,5 @@
 import re
+import ast
 import operator
 
 # Definir las funciones
@@ -6,6 +7,8 @@ def suma(a, b):
     return a + b
 
 def division(a, b):
+    if b == 0:
+        raise ZeroDivisionError("División por cero")
     return a / b
 
 def multiplicar(a, b):
@@ -16,10 +19,10 @@ def resta(a, b):
 
 # Diccionario de operadores
 OPERATORS = {
-    '+': suma,
-    '-': resta,
-    '*': multiplicar,
-    '/': division
+    ast.Add: suma,
+    ast.Sub: resta,
+    ast.Mult: multiplicar,
+    ast.Div: division
 }
 
 def calculate(expression):
@@ -35,17 +38,24 @@ def calculate(expression):
         raise ValueError("La expresión contiene caracteres inválidos")
     
     try:
-        # Reemplazar operadores con las funciones definidas
-        for op, func in OPERATORS.items():
-            expression = expression.replace(op, f' {func.__name__} ')
-        
-        # Evaluar la expresión en un entorno seguro
-        result = eval(expression, {"__builtins__": None}, OPERATORS)
+        # Parsear la expresión
+        node = ast.parse(expression, mode='eval')
+        return _eval(node.body)
     except ZeroDivisionError:
         raise ZeroDivisionError("División por cero")
     except SyntaxError:
         raise SyntaxError("Error de sintaxis en la expresión")
     except Exception as e:
         raise ValueError(f"Error al evaluar la expresión: {e}")
-    
-    return result
+
+def _eval(node):
+    if isinstance(node, ast.BinOp):
+        left = _eval(node.left)
+        right = _eval(node.right)
+        return OPERATORS[type(node.op)](left, right)
+    elif isinstance(node, ast.Num):
+        return node.n
+    elif isinstance(node, ast.Expression):
+        return _eval(node.body)
+    else:
+        raise TypeError(node)
